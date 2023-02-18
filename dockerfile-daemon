@@ -16,7 +16,10 @@ RUN git clone https://github.com/MCSManager/MCSManager-Daemon-Production $INSTAL
     npm i --production
 
 ENV TZ=Asia/Shanghai
+ENV PUID=0
+ENV PGID=0
+ENV UMASK=022
 VOLUME [ "$INSTALL_PATH/releases/daemon/data", "$INSTALL_PATH/releases/daemon/logs" ]
 EXPOSE 24444 25565-25575
 WORKDIR $INSTALL_PATH/releases/daemon
-CMD [ "node", "app.js"]
+CMD [ "node", "app.js" ]
