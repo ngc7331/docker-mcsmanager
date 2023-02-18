@@ -29,8 +29,20 @@ Notes:
 2. Replace `<tag>` with `latest` or any valid tag, checkout [tags](https://hub.docker.com/repository/docker/ngc7331/mcsmanager-daemon/tags) on Docker Hub
 3. If you don't want use mcsm to control docker, remove `-v /var/run/docker.sock:/var/run/docker.sock \`
 
+### Run Web
+```
+$ docker run -d --name mcsm-web \
+             -p 23333:23333 \
+             -v your/path/to/data:/opt/mcsm/releases/web/data \
+             -v your/path/to/logs:/opt/mcsm/releases/web/logs \
+             ngc7331/mcsmanager-web:<tag>
+```
+Notes:
+1. Replace `your/path/to/xxx` with your actual path
+2. Replace `<tag>` with `latest` or any valid tag, checkout [tags](https://hub.docker.com/repository/docker/ngc7331/mcsmanager-web/tags) on Docker Hub
+
 ### Stop & Remove
 ```
-$ docker stop mcsm-daemon
-$ docker rm mcsm-daemon
+$ docker stop mcsm-{daemon,web}
+$ docker rm mcsm-{daemon,web}
 ```
