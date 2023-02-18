@@ -11,15 +11,15 @@ RUN echo "deb http://deb.debian.org/debian bullseye main" >> /etc/apt/sources.li
     apt install -y git openjdk-$JDK_VERSION-jre-headless
 
 # install mcsm
-RUN git clone https://github.com/MCSManager/MCSManager-Daemon-Production $INSTALL_PATH/releases/daemon && \
-    cd $INSTALL_PATH/releases/daemon && \
+RUN git clone https://github.com/MCSManager/MCSManager-Daemon-Production $INSTALL_PATH/daemon && \
+    cd $INSTALL_PATH/daemon && \
     npm i --production
 
 ENV TZ=Asia/Shanghai
 ENV PUID=0
 ENV PGID=0
 ENV UMASK=022
-VOLUME [ "$INSTALL_PATH/releases/daemon/data", "$INSTALL_PATH/releases/daemon/logs" ]
+VOLUME [ "$INSTALL_PATH/daemon/data", "$INSTALL_PATH/daemon/logs" ]
 EXPOSE 24444 25565-25575
-WORKDIR $INSTALL_PATH/releases/daemon
+WORKDIR $INSTALL_PATH/daemon
 CMD [ "node", "app.js" ]

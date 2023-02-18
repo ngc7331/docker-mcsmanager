@@ -19,8 +19,8 @@ See official repo [here](https://github.com/MCSManager/MCSManager)
 $ docker run -d --name mcsm-daemon \
              -p 24444:24444 \
              -p 25565-25575:25565-25575 \
-             -v your/path/to/data:/opt/mcsm/releases/daemon/data \
-             -v your/path/to/logs:/opt/mcsm/releases/daemon/logs \
+             -v your/path/to/data:/opt/mcsm/daemon/data \
+             -v your/path/to/logs:/opt/mcsm/daemon/logs \
              -v /var/run/docker.sock:/var/run/docker.sock \
              ngc7331/mcsmanager-daemon:<tag>
 ```
@@ -33,8 +33,8 @@ Notes:
 ```
 $ docker run -d --name mcsm-web \
              -p 23333:23333 \
-             -v your/path/to/data:/opt/mcsm/releases/web/data \
-             -v your/path/to/logs:/opt/mcsm/releases/web/logs \
+             -v your/path/to/data:/opt/mcsm/web/data \
+             -v your/path/to/logs:/opt/mcsm/web/logs \
              ngc7331/mcsmanager-web:<tag>
 ```
 Notes:
