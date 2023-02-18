@@ -1,0 +1,22 @@
+FROM node:14-slim
+
+ARG INSTALL_PATH=/opt/mcsm
+ARG JDK_VERSION
+
+# install git & openjdk
+# add bullseye repo for openjdk-17, stretch repo for openjdk-8, openjdk-11 is already included in default buster repo
+RUN echo "deb http://deb.debian.org/debian bullseye main" >> /etc/apt/sources.list && \
+    echo "deb http://deb.debian.org/debian stretch main" >> /etc/apt/sources.list && \
+    apt update && \
+    apt install -y git openjdk-$JDK_VERSION-jre-headless
+
+# install mcsm
+RUN git clone https://github.com/MCSManager/MCSManager-Daemon-Production $INSTALL_PATH/releases/daemon && \
+    cd $INSTALL_PATH/releases/daemon && \
+    npm i --production
+
+ENV TZ=Asia/Shanghai
+VOLUME [ "$INSTALL_PATH/releases/daemon/data", "$INSTALL_PATH/releases/daemon/logs" ]
+EXPOSE 24444 25565-25575
+WORKDIR $INSTALL_PATH/releases/daemon
+CMD [ "node", "app.js"]
