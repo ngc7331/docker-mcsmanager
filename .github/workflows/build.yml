@@ -1,0 +1,22 @@
+name: build
+on:
+  schedule:
+    - cron: '0 8 * * *'
+  workflow_dispatch:
+
+jobs:
+  build_all:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+      - run: sudo apt update && sudo apt install jq curl
+      - env:
+          DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
+          DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
+          GIT_TRACK: true
+          FORCED_BUILD: false
+        run: |
+            ./build-all.sh

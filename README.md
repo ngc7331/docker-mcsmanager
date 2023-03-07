@@ -2,11 +2,17 @@
 See official repo [here](https://github.com/MCSManager/MCSManager)
 
 ## Version Info
-| MineCraft Version | Recommended OpenJDK version |
+| Minecraft Version | Recommended OpenJDK version |
 | --- | --- |
 | 1.7.X or lower | 8 |
 | 1.8.X ~ 1.16.X | 11 |
 | 1.17.X or higher | 17 |
+
+Please check the [Releases page](https://github.com/MCSManager/MCSManager/releases) of the official repository for the version relationship between daemon and web.
+
+## Latest build
+Daemon: 3.2.0
+Web: 9.7.2
 
 ## Usage
 ### Build
