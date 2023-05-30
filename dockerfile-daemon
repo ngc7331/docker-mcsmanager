@@ -6,7 +6,7 @@ ARG JDK_VERSION
 # install git & openjdk
 # add bullseye repo for openjdk-17, stretch repo for openjdk-8, openjdk-11 is already included in default buster repo
 RUN echo "deb http://deb.debian.org/debian bullseye main" >> /etc/apt/sources.list && \
-    echo "deb http://deb.debian.org/debian stretch main" >> /etc/apt/sources.list && \
+    echo "deb http://archive.debian.org/debian-archive/debian stretch main" >> /etc/apt/sources.list && \
     apt update && \
     apt install -y git openjdk-$JDK_VERSION-jre-headless
 
