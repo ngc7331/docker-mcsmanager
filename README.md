@@ -11,7 +11,7 @@ See official repo [here](https://github.com/MCSManager/MCSManager)
 Please check the [Releases page](https://github.com/MCSManager/MCSManager/releases) of the official repository for the version relationship between daemon and web.
 
 ## Latest build
-Daemon: 3.3.0
+Daemon: 3.4.0
 Web: 9.9.0
 
 ## Usage
