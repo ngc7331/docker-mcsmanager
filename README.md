@@ -12,7 +12,7 @@ Please check the [Releases page](https://github.com/MCSManager/MCSManager/releas
 
 ## Latest build
 Daemon: 3.3.0
-Web: 9.8.0
+Web: 9.9.0
 
 ## Usage
 ### Build
