@@ -14,26 +14,30 @@ RUN if [ "${TARGETARCH}" = "amd64" ]; then \
     rm node.tar.gz && \
     node --version
 
-ARG INSTALL_PATH=/opt/mcsm
-ARG JDK_VERSION
-
-# install git & openjdk
-# add bullseye repo for openjdk-17, stretch repo for openjdk-8, openjdk-11 is already included in default buster repo
-RUN echo "deb http://deb.debian.org/debian bullseye main" >> /etc/apt/sources.list && \
-    echo "deb http://archive.debian.org/debian-archive/debian stretch main" >> /etc/apt/sources.list && \
-    apt update && \
-    apt install -y git openjdk-$JDK_VERSION-jre-headless
-
 # install mcsm
-RUN git clone https://github.com/MCSManager/MCSManager-Daemon-Production $INSTALL_PATH/daemon && \
-    cd $INSTALL_PATH/daemon && \
-    npm i --production
+ARG INSTALL_PATH=/opt/mcsm
+ARG MCSM_VERSION=10.2.1
+RUN mkdir -p ${INSTALL_PATH} && \
+    curl -Ljo mcsm.tar.gz https://github.com/MCSManager/MCSManager/releases/download/v${MCSM_VERSION}/mcsmanager_linux_release.tar.gz && \
+    tar -xvf mcsm.tar.gz ./daemon && \
+    rm mcsm.tar.gz && \
+    mv ./daemon ${INSTALL_PATH}/daemon
+
+# install openjdk
+ARG JDK_VERSION=nojdk
+RUN if [ "${JDK_VERSION}" = "nojdk" ]; then \
+        echo "skip installing openjdk"; \
+    else \
+        apt update && \
+        apt install -y openjdk-${JDK_VERSION}-jre-headless && \
+        apt clean && \
+        java -version; \
+    fi
 
 ENV TZ=Asia/Shanghai
 ENV PUID=0
 ENV PGID=0
-ENV UMASK=022
-VOLUME [ "$INSTALL_PATH/daemon/data", "$INSTALL_PATH/daemon/logs" ]
+VOLUME [ "${INSTALL_PATH}/daemon/data", "${INSTALL_PATH}/daemon/logs" ]
 EXPOSE 24444 25565-25575
-WORKDIR $INSTALL_PATH/daemon
-CMD [ "node", "app.js" ]
+WORKDIR ${INSTALL_PATH}/daemon
+CMD [ "node", "--max-old-space-size=8192", "--enable-source-maps", "app.js" ]

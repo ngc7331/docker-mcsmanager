@@ -14,19 +14,19 @@ RUN if [ "${TARGETARCH}" = "amd64" ]; then \
     rm node.tar.gz && \
     node --version
 
-ARG INSTALL_PATH=/opt/mcsm
-
-# install git
-RUN apt update && \
-    apt install -y git
-
 # install mcsm
-RUN git clone --single-branch -b master --depth 1 https://github.com/MCSManager/MCSManager-Web-Production $INSTALL_PATH/web && \
-    cd $INSTALL_PATH/web && \
-    npm i --production
+ARG INSTALL_PATH=/opt/mcsm
+ARG MCSM_VERSION=10.2.1
+RUN mkdir -p ${INSTALL_PATH} && \
+    curl -Ljo mcsm.tar.gz https://github.com/MCSManager/MCSManager/releases/download/v${MCSM_VERSION}/mcsmanager_linux_release.tar.gz && \
+    tar -xvf mcsm.tar.gz ./web && \
+    rm mcsm.tar.gz && \
+    mv ./web ${INSTALL_PATH}/web
 
 ENV TZ=Asia/Shanghai
-VOLUME [ "$INSTALL_PATH/web/data", "$INSTALL_PATH/web/logs" ]
+ENV PUID=0
+ENV PGID=0
+VOLUME [ "${INSTALL_PATH}/web/data", "${INSTALL_PATH}/web/logs" ]
 EXPOSE 23333
-WORKDIR $INSTALL_PATH/web
-CMD [ "node", "app.js" ]
+WORKDIR ${INSTALL_PATH}/web
+CMD [ "node", "--max-old-space-size=8192", "--enable-source-maps", "app.js" ]
