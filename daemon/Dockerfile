@@ -15,13 +15,14 @@ RUN if [ "${TARGETARCH}" = "amd64" ]; then \
     node --version
 
 # install mcsm
-ARG INSTALL_PATH=/opt/mcsm
+ENV MCSM_PATH=/opt/mcsm
 ARG MCSM_VERSION=10.2.1
-RUN mkdir -p ${INSTALL_PATH} && \
+RUN mkdir -p ${MCSM_PATH} && \
     curl -Ljo mcsm.tar.gz https://github.com/MCSManager/MCSManager/releases/download/v${MCSM_VERSION}/mcsmanager_linux_release.tar.gz && \
     tar -xvf mcsm.tar.gz ./daemon && \
     rm mcsm.tar.gz && \
-    mv ./daemon ${INSTALL_PATH}/daemon
+    mv ./daemon ${MCSM_PATH}/daemon && \
+    chown root:root -R ${MCSM_PATH}
 
 # install openjdk
 ARG JDK_VERSION=nojdk
@@ -34,10 +35,10 @@ RUN if [ "${JDK_VERSION}" = "nojdk" ]; then \
         java -version; \
     fi
 
+COPY root/ /
+
 ENV TZ=Asia/Shanghai
 ENV PUID=0
 ENV PGID=0
-VOLUME [ "${INSTALL_PATH}/daemon/data", "${INSTALL_PATH}/daemon/logs" ]
+VOLUME [ "${MCSM_PATH}/daemon/data", "${MCSM_PATH}/daemon/logs" ]
 EXPOSE 24444 25565-25575
-WORKDIR ${INSTALL_PATH}/daemon
-CMD [ "node", "--max-old-space-size=8192", "--enable-source-maps", "app.js" ]

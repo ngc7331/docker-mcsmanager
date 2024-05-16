@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+mkdir -p ${MCSM_PATH}/daemon/data
+mkdir -p ${MCSM_PATH}/daemon/logs
+
+lsiown -R abc:abc ${MCSM_PATH}/daemon/data
+lsiown -R abc:abc ${MCSM_PATH}/daemon/logs

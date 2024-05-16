@@ -1,0 +1,4 @@
+#!/usr/bin/with-contenv bash
+
+s6-setuidgid abc \
+    cd /opt/mcsm/web node --max-old-space-size=8192 --enable-source-maps app.js

@@ -1,0 +1,7 @@
+#!/usr/bin/with-contenv bash
+
+mkdir -p ${MCSM_PATH}/web/data
+mkdir -p ${MCSM_PATH}/web/logs
+
+lsiown -R abc:abc ${MCSM_PATH}/web/data
+lsiown -R abc:abc ${MCSM_PATH}/web/logs
