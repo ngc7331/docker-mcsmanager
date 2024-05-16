@@ -1,27 +1,17 @@
 # Unofficial MCSManager Docker Image with built-in OpenJDK
 See official repo [here](https://github.com/MCSManager/MCSManager)
 
-## Version Info
-| Minecraft Version | Recommended OpenJDK version |
-| --- | --- |
-| 1.7.X or lower | 8 |
-| 1.8.X ~ 1.16.X | 11 |
-| 1.17.X or higher | 17 |
+## About v10
+MCSManager is under a major update to v10, make sure to backup your data before upgrading.
 
-Please check the [Releases page](https://github.com/MCSManager/MCSManager/releases) of the official repository for the version relationship between daemon and web.
+Also, this repo is doing refactoring to support v10 (and provide better experience), please checkout `v9` branch for old version.
 
-## Latest build
-Daemon: 3.4.0
-Web: 9.9.0
+## OpenJDK Version
+See official doc [here](https://docs.mcsmanager.com/setup_package.html#install-java-environment) to choose the right JDK version depending on your Minecraft server version.
 
 ## Usage
-### Build
-1. Make sure `curl` and `jq` are installed
-2. Set DOCKERHUB_USER and DOCKERHUB_PASS in your env, E.g `export DOCKERHUB_USER=xxx`
-3. Run `build-all.sh`
-
 ### Run Daemon
-```
+```bash
 $ docker run -d --name mcsm-daemon \
              -p 24444:24444 \
              -p 25565-25575:25565-25575 \
@@ -36,7 +26,7 @@ Notes:
 3. If you don't want use mcsm to control docker, remove `-v /var/run/docker.sock:/var/run/docker.sock \`
 
 ### Run Web
-```
+```bash
 $ docker run -d --name mcsm-web \
              -p 23333:23333 \
              -v your/path/to/data:/opt/mcsm/web/data \
@@ -48,7 +38,7 @@ Notes:
 2. Replace `<tag>` with `latest` or any valid tag, checkout [tags](https://hub.docker.com/repository/docker/ngc7331/mcsmanager-web/tags) on Docker Hub
 
 ### Stop & Remove
-```
+```bash
 $ docker stop mcsm-{daemon,web}
 $ docker rm mcsm-{daemon,web}
 ```
