@@ -1,17 +1,8 @@
-FROM --platform=${TARGETPLATFORM} ghcr.io/linuxserver/baseimage-ubuntu:jammy
+FROM ghcr.io/ngc7331/docker-baseimage-alpine:3.20
 ARG TARGETARCH
 
-ARG NODE_VERSION=20.13.1
-RUN if [ "${TARGETARCH}" = "amd64" ]; then \
-        curl -Ljo node.tar.gz "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-x64.tar.gz"; \
-    elif [ "${TARGETARCH}" = "arm64" ]; then \
-        curl -Ljo node.tar.gz "https://nodejs.org/dist/v${NODE_VERSION}/node-v${NODE_VERSION}-linux-arm64.tar.gz"; \
-    else \
-        echo "Unsupported architecture: ${TARGETARCH}"; \
-        exit 1; \
-    fi && \
-    tar -xvf node.tar.gz --directory /usr/local --strip-components 1 && \
-    rm node.tar.gz && \
+RUN apk add --no-cache \
+        nodejs && \
     node --version
 
 # install mcsm

@@ -1,6 +1,8 @@
 #!/bin/bash
 
-PLATFORMS=linux/amd64,linux/arm64
+set -e
+
+PLATFORMS=linux/amd64,linux/arm64,linux/riscv64
 
 DOCKER_USER=ngc7331
 DOCKER_REPO=mcsmanager
@@ -20,7 +22,7 @@ cd -
 echo === build daemon ===
 cd daemon
 JDK_DEFAULT=17
-JDK_VERSIONS=(nojdk 8 17)
+JDK_VERSIONS=(nojdk 8 11 17 21)
 for JDK in ${JDK_VERSIONS[@]}; do
     echo "-> JDK: ${JDK}"
 
