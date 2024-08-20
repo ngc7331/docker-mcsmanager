@@ -9,16 +9,22 @@ jobs:
       matrix:
         include:
           - target: "web"
+            platform: "linux/amd64,linux/arm64,linux/riscv64"
           - target: "daemon"
             jdk: "nojdk"
+            platform: "linux/amd64,linux/arm64,linux/riscv64"
           - target: "daemon"
             jdk: "8"
+            platform: "linux/amd64,linux/arm64"
           - target: "daemon"
             jdk: "11"
+            platform: "linux/amd64,linux/arm64"
           - target: "daemon"
             jdk: "17"
+            platform: "linux/amd64,linux/arm64"
           - target: "daemon"
             jdk: "21"
+            platform: "linux/amd64,linux/arm64,linux/riscv64"
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -71,7 +77,7 @@ jobs:
           build-args: |
             MCSM_VERSION=${{ env.VERSION }}
             JDK_VERSION=${{ matrix.jdk }}
-          platforms: linux/amd64,linux/arm64,linux/riscv64
+          platforms: ${{ matrix.platform }}
           push: true
           tags: |
             ngc7331/mcsmanager-${{ matrix.target }}:latest${{ env.TAG_SUFFIX }}

@@ -36,6 +36,11 @@ for JDK in ${JDK_VERSIONS[@]}; do
         TAG_SUFFIX+=("")
     fi
 
+    # remove linux/riscv64 for lower JDK versions
+    if [ "${JDK}" != "nojdk" ] && [ "${JDK}" -le 21 ]; then
+        PLATFORMS=${PLATFORMS/,linux\/riscv64/}
+    fi
+
     docker buildx build \
         --platform ${PLATFORMS} \
         --build-arg MCSM_VERSION="${VERSION}" \
