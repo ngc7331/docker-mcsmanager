@@ -19,6 +19,10 @@ RUN mkdir -p ${MCSM_PATH} && \
 ARG JDK_VERSION=nojdk
 RUN if [ "${JDK_VERSION}" = "nojdk" ]; then \
         echo "skip installing openjdk"; \
+    elif [ "${JDK_VERSION}" = "8" ]; then \
+        apk add --no-cache \
+            openjdk${JDK_VERSION}-jre && \
+        java -version; \
     else \
         apk add --no-cache \
             openjdk${JDK_VERSION}-jre-headless && \
