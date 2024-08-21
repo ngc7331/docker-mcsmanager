@@ -21,7 +21,7 @@ cd -
 
 echo === build daemon ===
 cd daemon
-JDK_DEFAULT=17
+JDK_DEFAULT=21
 JDK_VERSIONS=(nojdk 8 11 17 21 22)
 for JDK in ${JDK_VERSIONS[@]}; do
     echo "-> JDK: ${JDK}"
