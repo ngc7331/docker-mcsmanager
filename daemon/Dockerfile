@@ -23,6 +23,12 @@ RUN if [ "${JDK_VERSION}" = "nojdk" ]; then \
         apk add --no-cache \
             openjdk${JDK_VERSION}-jre && \
         java -version; \
+    elif [ "${JDK_VERSION}" = "22" ]; then \
+        echo "warning: openjdk22 is not stable yet, use with caution"; \
+        sed -n "s;v3.20/main;edge/testing;p" /etc/apk/repositories >> /etc/apk/repositories && \
+        apk add --no-cache \
+            openjdk${JDK_VERSION}-jre && \
+        java -version; \
     else \
         apk add --no-cache \
             openjdk${JDK_VERSION}-jre-headless && \
