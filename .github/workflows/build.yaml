@@ -47,11 +47,14 @@ jobs:
           if [ "${{ matrix.target }}" = "daemon" ]; then
             if [ "${{ matrix.jdk }}" = "nojdk" ]; then
               TAG_SUFFIX="-nojdk"
+              PREINSTALL_JDK_VERSION=""
             else
               TAG_SUFFIX="-jdk${{ matrix.jdk }}"
+              PREINSTALL_JDK_VERSION="${{ matrix.jdk }}"
             fi
           fi
           echo "TAG_SUFFIX=${TAG_SUFFIX}" >> $GITHUB_OUTPUT
+          echo "PREINSTALL_JDK_VERSION=${PREINSTALL_JDK_VERSION}" >> $GITHUB_OUTPUT
           if [ "$(sed -n -r 's/^JDK_DEFAULT=(.*)/\1/p' buildx.sh)" = "${{ matrix.jdk }}" ]; then
             echo "IS_TAG_SUFFIX_DEFAULT=true" >> $GITHUB_OUTPUT
           else
@@ -71,7 +74,7 @@ jobs:
           platforms: ${{ matrix.platform }}
           build_args: |
             MCSM_VERSION=${{ steps.version.outputs.VERSION }}
-            JDK_VERSION=${{ matrix.jdk }}
+            PREINSTALL_JDK_VERSION=${{ steps.version.outputs.PREINSTALL_JDK_VERSION }}
           DOCKERHUB_USER: ${{ secrets.DOCKERHUB_USER }}
           DOCKERHUB_PASS: ${{ secrets.DOCKERHUB_PASS }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

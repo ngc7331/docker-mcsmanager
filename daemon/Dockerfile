@@ -15,27 +15,13 @@ RUN mkdir -p ${MCSM_PATH} && \
     mv ./daemon ${MCSM_PATH}/daemon && \
     chown root:root -R ${MCSM_PATH}
 
-# install openjdk
-ARG JDK_VERSION=nojdk
-RUN if [ "${JDK_VERSION}" = "nojdk" ]; then \
-        echo "skip installing openjdk"; \
-    elif [ "${JDK_VERSION}" = "8" ]; then \
-        apk add --no-cache \
-            openjdk${JDK_VERSION}-jre && \
-        java -version; \
-    elif [ "${JDK_VERSION}" = "22" ]; then \
-        echo "warning: openjdk22 is not stable yet, use with caution"; \
-        sed -n "s;v3.20/main;edge/testing;p" /etc/apk/repositories >> /etc/apk/repositories && \
-        apk add --no-cache \
-            openjdk${JDK_VERSION}-jre && \
-        java -version; \
-    else \
-        apk add --no-cache \
-            openjdk${JDK_VERSION}-jre-headless && \
-        java -version; \
-    fi
-
 COPY root/ /
+
+# pre-install openjdk
+ARG PREINSTALL_JDK_VERSION
+ENV PREINSTALL_JDK_VERSION=${PREINSTALL_JDK_VERSION}
+ENV JDK_VERSION=
+RUN /app/install_jdk.sh ${PREINSTALL_JDK_VERSION}
 
 ENV TZ=Asia/Shanghai
 ENV PUID=0

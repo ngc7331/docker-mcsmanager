@@ -28,8 +28,10 @@ for JDK in ${JDK_VERSIONS[@]}; do
 
     if [ "${JDK}" = "nojdk" ]; then
         TAG_SUFFIX=(-nojdk)
+        PREINSTALL_JDK_VERSION=""
     else
         TAG_SUFFIX=(-jdk${JDK})
+        PREINSTALL_JDK_VERSION=${JDK}
     fi
 
     if [ "${JDK}" = "${JDK_DEFAULT}" ]; then
@@ -44,7 +46,7 @@ for JDK in ${JDK_VERSIONS[@]}; do
     docker buildx build \
         --platform ${PLATFORMS} \
         --build-arg MCSM_VERSION="${VERSION}" \
-        --build-arg JDK_VERSION="${JDK}" \
+        --build-arg PREINSTALL_JDK_VERSION="${PREINSTALL_JDK_VERSION}" \
         ${TAG_SUFFIX[@]/#/"-t ${DOCKER_USER}/${DOCKER_REPO}-daemon:latest"} \
         ${TAG_SUFFIX[@]/#/"-t ${DOCKER_USER}/${DOCKER_REPO}-daemon:${VERSION}"} \
         --push .

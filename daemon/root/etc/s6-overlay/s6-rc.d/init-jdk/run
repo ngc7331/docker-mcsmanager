@@ -1,0 +1,13 @@
+#!/usr/bin/with-contenv bash
+
+# JDK_VERSION is comma-separated list of versions
+echo "[init-jdk] Setting up JDK..."
+echo "[init-jdk] Requested JDK version: ${JDK_VERSION}"
+
+for version in $(echo ${JDK_VERSION} | tr ',' ' '); do
+  if [ "${version}" = "${PREINSTALL_JDK_VERSION}" ]; then
+    echo "[init-jdk] Skipping pre-installed JDK ${version} installation..."
+    continue
+  fi
+  /app/install_jdk.sh ${version}
+done
