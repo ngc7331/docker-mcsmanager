@@ -9,5 +9,16 @@ for version in $(echo ${JDK_VERSION} | tr ',' ' '); do
     echo "[init-jdk] Skipping pre-installed JDK ${version} installation..."
     continue
   fi
+  echo "[init-jdk] Installing JDK ${version}..."
   /app/install_jdk.sh ${version}
 done
+
+if [ "${PREINSTALL_JDK_VERSION}" != "nojdk" ]; then
+  echo "[init-jdk] Setting default version to ${PREINSTALL_JDK_VERSION}..."
+  rm /usr/lib/jvm/default-jvm
+  ln -s /usr/lib/jvm/java-${PREINSTALL_JDK_VERSION}-openjdk /usr/lib/jvm/default-jvm
+  # sanity check
+  java -version
+fi
+
+echo "[init-jdk] JDK setup done."
