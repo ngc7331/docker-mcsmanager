@@ -7,7 +7,7 @@ PLATFORMS=linux/amd64,linux/arm64,linux/riscv64
 DOCKER_USER=ngc7331
 DOCKER_REPO=mcsmanager
 
-VERSION=10.2.1
+VERSION=10.4.0
 
 echo === build web ===
 cd web
