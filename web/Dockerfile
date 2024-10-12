@@ -7,7 +7,7 @@ RUN apk add --no-cache \
 
 # install mcsm
 ENV MCSM_PATH=/opt/mcsm
-ARG MCSM_VERSION=10.4.0
+ARG MCSM_VERSION=10.4.1
 RUN mkdir -p ${MCSM_PATH} && \
     curl -Ljo mcsm.tar.gz https://github.com/MCSManager/MCSManager/releases/download/v${MCSM_VERSION}/mcsmanager_linux_release.tar.gz && \
     tar -xvf mcsm.tar.gz mcsmanager/web --strip-components=1 && \
