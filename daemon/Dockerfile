@@ -13,7 +13,8 @@ RUN mkdir -p ${MCSM_PATH} && \
     tar -xvf mcsm.tar.gz mcsmanager/daemon --strip-components=1 && \
     rm mcsm.tar.gz && \
     mv ./daemon ${MCSM_PATH}/daemon && \
-    chown root:root -R ${MCSM_PATH}
+    chown root:root -R ${MCSM_PATH} && \
+    chmod a+x ${MCSM_PATH}/daemon/lib/*
 
 COPY root/ /
 
