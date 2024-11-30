@@ -1,4 +1,4 @@
-FROM ghcr.io/ngc7331/docker-baseimage-alpine:3.20
+FROM ghcr.io/ngc7331/linuxserver-baseimage-alpine:3.20
 ARG TARGETARCH
 
 RUN apk add --no-cache \
