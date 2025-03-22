@@ -40,6 +40,8 @@ You can use `/usr/lib/jvm/java-${JDK_VERSION}-openjdk/bin/java` (or `java${JDK_V
 
 Currently, the `latest` tag is equivalent to `latest-jdk21`.
 
+From 2025.03.22, pre-built openjdk 7/11/17 support is dropped, you can still use `-e JDK_VERSION=7,11,17` to install them at runtime.
+
 ## Usage
 ### Run Daemon
 ```bash
