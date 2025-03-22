@@ -42,6 +42,10 @@ Currently, the `latest` tag is equivalent to `latest-jdk21`.
 
 From 2025.03.22, pre-built openjdk 7/11/17 support is dropped, you can still use `-e JDK_VERSION=7,11,17` to install them at runtime.
 
+## Plugin
+This is an experimental system that automatically installs plugins at runtime via the `PLUGIN` environment variable, currently supported plugins are:
+- `mcdr`: [MCDReforged](https://github.com/MCDReforged/MCDReforged) (includes python3)
+
 ## Usage
 ### Run Daemon
 ```bash
@@ -65,6 +69,7 @@ Notes:
 | `JAVA_VERSION` | `` | Comma-seperated OpenJDK version, see [here](https://docs.mcsmanager.com/setup_package.html#install-java-environment)|
 | `PUID` | `0` | User ID |
 | `PGID` | `0` | Group ID |
+| `PLUGIN` | `` | Comma-seperated plugin list, see [here](#plugin) |
 
 ### Run Web
 ```bash

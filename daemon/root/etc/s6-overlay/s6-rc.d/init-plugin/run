@@ -1,0 +1,37 @@
+#!/usr/bin/with-contenv bash
+
+# JDK_VERSION is comma-separated list of versions
+echo "[init-plugin] Setting up JDK..."
+echo "[init-plugin] Requested JDK version: ${JDK_VERSION}"
+
+for version in $(echo ${JDK_VERSION} | tr ',' ' '); do
+  if [ "${version}" = "${PREINSTALL_JDK_VERSION}" ]; then
+    echo "[init-plugin] Skipping pre-installed JDK ${version} installation..."
+    continue
+  fi
+  echo "[init-plugin] Installing JDK ${version}..."
+  /app/install_jdk.sh ${version}
+done
+
+if [ "${PREINSTALL_JDK_VERSION}" != "nojdk" ]; then
+  echo "[init-plugin] Setting default version to ${PREINSTALL_JDK_VERSION}..."
+  rm /usr/lib/jvm/default-jvm
+  ln -s /usr/lib/jvm/java-${PREINSTALL_JDK_VERSION}-openjdk /usr/lib/jvm/default-jvm
+  # sanity check
+  java -version
+fi
+
+echo "[init-plugin] JDK setup done."
+
+# $PLUGIN is comma-separated list of plugins
+for plugin in $(echo ${PLUGIN} | tr ',' ' '); do
+  case $plugin in
+    "mcdr")
+      echo "[init-plugin] Setting up MCDReforged..."
+      /app/install_mcdr.sh
+      ;;
+    *)
+      echo "[init-plugin] Unknown plugin: ${plugin}"
+      ;;
+  esac
+done
