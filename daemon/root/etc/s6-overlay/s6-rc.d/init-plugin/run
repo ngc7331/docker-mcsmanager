@@ -10,7 +10,7 @@ for version in $(echo ${JDK_VERSION} | tr ',' ' '); do
     continue
   fi
   echo "[init-plugin] Installing JDK ${version}..."
-  /app/install_jdk.sh ${version}
+  /app/install-jdk.sh ${version}
 done
 
 if [ "${PREINSTALL_JDK_VERSION}" != "nojdk" ]; then
@@ -28,7 +28,7 @@ for plugin in $(echo ${PLUGIN} | tr ',' ' '); do
   case $plugin in
     "mcdr")
       echo "[init-plugin] Setting up MCDReforged..."
-      /app/install_mcdr.sh
+      /app/plugin/install-mcdr.sh
       ;;
     *)
       echo "[init-plugin] Unknown plugin: ${plugin}"
