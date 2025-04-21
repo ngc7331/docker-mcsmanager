@@ -1,6 +1,9 @@
 # Unofficial MCSManager Docker Image with built-in OpenJDK
 See official repo [here](https://github.com/MCSManager/MCSManager)
 
+## Last build info
+- mcsmanager version: 10.5.0
+
 ## About v10
 MCSManager is under a major update to v10, make sure to backup your data before upgrading.
 

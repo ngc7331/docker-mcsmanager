@@ -34,7 +34,7 @@ jobs:
       - name: Get version
         id: version
         run: |
-          echo "VERSION=$(sed -n -r 's/^VERSION=(.*)/\1/p' buildx.sh)" >> $GITHUB_OUTPUT
+          echo "VERSION=$(grep -oP '(?<=mcsmanager version: ).*' README.md)" >> $GITHUB_OUTPUT
           if [ "${{ matrix.target }}" = "daemon" ]; then
             if [ "${{ matrix.jdk }}" = "nojdk" ]; then
               TAG_SUFFIX="-nojdk"
