@@ -11,9 +11,9 @@ fi
 
 if [ "${VERSION}" = "8" ]; then
   SUFFIX=""
-elif [ "${VERSION}" = "22" ] || [ "${VERSION}" = "23" ]; then
-  echo "[install-jdk] Warning: openjdk22/23 is not stable yet, use with caution"
-  sed -n "s;v3.21/main;edge/testing;p" /etc/apk/repositories >> /etc/apk/repositories
+elif [ "${VERSION}" = "22" ] || [ "${VERSION}" = "23"] || [ "${VERSION}" = "24" ]; then
+  echo "[install-jdk] Warning: openjdk22/23/24 is not stable yet, use with caution"
+  sed -n "s;v3.22/main;edge/testing;p" /etc/apk/repositories >> /etc/apk/repositories
 fi
 
 if [ ! -f "/usr/lib/jvm/java-${VERSION}-openjdk/bin/java" ]; then
