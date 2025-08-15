@@ -2,7 +2,7 @@
 See official repo [here](https://github.com/MCSManager/MCSManager)
 
 ## Last build info
-- mcsmanager version: 10.7.1
+- mcsmanager version: 10.8.1
 
 ## About v10
 MCSManager is under a major update to v10, make sure to backup your data before upgrading.
